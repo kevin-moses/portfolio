@@ -1,24 +1,16 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import HydraBackground from './components/HydraBackground';
-import SitAnimation from './components/SitAnimation';
-import SubtitleRotator from './components/SubtitleRotator';
-import subtitles from './data/subtitles';
+import LandingPage from './pages/LandingPage';
+import ProjectPage from './pages/ProjectPage';
 
 function App() {
   return (
-    <main className="hero">
-      <HydraBackground />
-      <div className="hero__content">
-        <div className="hero__copy">
-          <p className="hero__eyebrow">Portfolio</p>
-          <h1 className="hero__title">Kevin Moses</h1>
-          <p className="hero__subtitle">
-            <SubtitleRotator words={subtitles} />
-          </p>
-        </div>
-        <SitAnimation />
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/projects/:slug" element={<ProjectPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -26,16 +26,17 @@ function HydraBackground() {
 
       const h = hydraInstance.synth;
 
-      h.osc(1, 1, 1.8)
-        .modulateRotate(h.noise(40, 2), 2)
+      h.osc(0.4, 0.7, 0.9)
+        .modulateRotate(h.noise(80, 4), 2)
         .kaleid(17)
         .rotate((Math.PI / 180) * 45, 0.5)
-        .pixelate(80, 20)
+        .pixelate(80, 40)
         .modulateRotate(
-          h.voronoi(4, 2.5),
+          h.voronoi(3, 1),
           () => Math.sin(performance.now() * 0.001),
         )
-        .brightness(-0.6)
+        .colorama(0.5)
+        .brightness(-0.2)
         .out(h.o0);
     }
 

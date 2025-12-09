@@ -439,7 +439,8 @@
   text-decoration: underline;
 }
 
-.project-page__markdown img {
+.project-page__markdown img,
+.project-page__video {
   display: block;
   width: 100%;
   height: auto;

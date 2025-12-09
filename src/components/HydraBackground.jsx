@@ -35,7 +35,7 @@ function HydraBackground() {
           h.voronoi(3, 1),
           () => Math.sin(performance.now() * 0.001),
         )
-        .colorama(0.5)
+        .colorama([0.005,0.33,0.66,1.0, 0.05, 0.01].fast(0.125))
         .brightness(-0.2)
         .out(h.o0);
     }

@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import HydraBackground from '../components/HydraBackground';
-import projects, { PNG_ASSETS } from '../data/projects';
+import projects, { ASSETS } from '../data/projects';
 
 function ProjectPage() {
   const { slug } = useParams();
@@ -32,7 +32,7 @@ function ProjectPage() {
       img: ({ node, src, alt, ...props }) => {
         const normalizedSrc = src?.replace(/^@/, '');
         const assetSrc =
-          normalizedSrc && (project.assets?.[normalizedSrc] ?? PNG_ASSETS[normalizedSrc]);
+          normalizedSrc && (project.assets?.[normalizedSrc] ?? ASSETS[normalizedSrc]);
 
         return (
           <img
@@ -41,6 +41,21 @@ function ProjectPage() {
             alt={alt}
             loading="lazy"
             className="project-page__image"
+          />
+        );
+      },
+      video: ({ node, src, ...props }) => {
+        const normalizedSrc = src?.replace(/^@/, '');
+        const assetSrc =
+          normalizedSrc && (project.assets?.[normalizedSrc] ?? ASSETS[normalizedSrc]);
+
+        return (
+          <video
+            {...props}
+            src={assetSrc ?? src}
+            className="project-page__video"
+            controls
+            playsInline
           />
         );
       },
@@ -73,4 +88,3 @@ function ProjectPage() {
 }
 
 export default ProjectPage;
-

@@ -6,15 +6,15 @@ import lotAgentsCopy from './projects/lot-ai-agents.md?raw';
 import oneHundredGamesCopy from './projects/100-games-later.md?raw';
 import sunnyVoiceCopy from './projects/sunny-voice.md?raw';
 
-const pngAssets = Object.entries(
-  import.meta.glob('../../assets/**/*.png', { eager: true, import: 'default' }),
+const assets = Object.entries(
+  import.meta.glob('../../assets/**/*.{png,jpg,jpeg,mp4}', { eager: true, import: 'default' }),
 ).reduce((acc, [path, asset]) => {
   const filename = path.split('/').pop();
   acc[filename] = asset;
   return acc;
 }, {});
 
-export const PNG_ASSETS = pngAssets;
+export const ASSETS = assets;
 
 export const PROJECT_TAGS = [
   'AI',
@@ -77,5 +77,3 @@ const projects = [
 ];
 
 export default projects;
-
-

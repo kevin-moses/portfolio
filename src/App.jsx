@@ -10,7 +10,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/projects/:slug" element={<ProjectPage />} />
+        <Route path="/:slug" element={<ProjectPage />} />
       </Routes>
     </BrowserRouter>
   );

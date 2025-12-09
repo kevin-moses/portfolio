@@ -7,7 +7,7 @@ function ProjectRoom({ project, isDimmed }) {
       className={`project-card${isDimmed ? ' project-card--dim' : ''}`}
       aria-label={`${project.title} project room`}
     >
-      <Link className="project-card__link project-card__link--stacked" to={`/projects/${project.slug}`}>
+      <Link className="project-card__link project-card__link--stacked" to={`/${project.slug}`}>
         <img
           src={doorIllustration}
           alt={`${project.title} door icon`}

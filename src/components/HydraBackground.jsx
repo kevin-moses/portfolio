@@ -1,11 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-const HYDRA_OPTIONS = {
-  detectAudio: false,
-  autoLoop: true,
-  makeGlobal: false,
-};
-
 function HydraBackground() {
   const canvasRef = useRef(null);
 
@@ -19,31 +13,43 @@ function HydraBackground() {
         return;
       }
 
+      const canvas = canvasRef.current;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
       hydraInstance = new Hydra({
-        ...HYDRA_OPTIONS,
-        canvas: canvasRef.current,
+        detectAudio: false,
+        autoLoop: true,
+        makeGlobal: false,
+        canvas,
       });
 
-      const h = hydraInstance.synth;
+      const s = hydraInstance.synth;
 
-      h.osc(0.4, 0.7, 0.9)
-        .modulateRotate(h.noise(80, 4), 2)
-        .kaleid(17)
-        .rotate((Math.PI / 180) * 45, 0.5)
-        .pixelate(80, 40)
-        .modulateRotate(
-          h.voronoi(3, 1),
-          () => Math.sin(performance.now() * 0.001),
-        )
-        .colorama([0.005,0.33,0.66,1.0, 0.05, 0.01].fast(0.125))
-        .brightness(-0.2)
-        .out(h.o0);
+      s.speed = 0.67;
+
+      s.voronoi(2, 0.5, 0.2).shift(0.5)
+        .modulatePixelate(s.voronoi(1, 0.067), 12, 7)
+        .scale(() => 1 + (Math.sin(s.time * 2.5) * 0.02)).rotate()
+        .diff(s.voronoi(4).shift(0.67))
+        .diff(s.osc(2, 0.15, 1.1).rotate())
+        .brightness(0.67).contrast(1.5).saturate(1.5)
+        .out(s.o0);
     }
 
     initHydra();
 
+    function handleResize() {
+      if (!canvasRef.current) return;
+      canvasRef.current.width = window.innerWidth;
+      canvasRef.current.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('resize', handleResize);
       hydraInstance = null;
     };
   }, []);

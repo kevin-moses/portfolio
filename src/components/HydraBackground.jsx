@@ -39,10 +39,20 @@ function HydraBackground() {
 
     initHydra();
 
+    let rafId = null;
     function handleResize() {
-      if (!canvasRef.current) return;
-      canvasRef.current.width = window.innerWidth;
-      canvasRef.current.height = window.innerHeight;
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        if (hydraInstance && typeof hydraInstance.setResolution === 'function') {
+          hydraInstance.setResolution(w, h);
+        } else if (canvasRef.current) {
+          canvasRef.current.width = w;
+          canvasRef.current.height = h;
+        }
+      });
     }
 
     window.addEventListener('resize', handleResize);
@@ -50,6 +60,7 @@ function HydraBackground() {
     return () => {
       isMounted = false;
       window.removeEventListener('resize', handleResize);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       hydraInstance = null;
     };
   }, []);

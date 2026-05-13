@@ -25,10 +25,9 @@ function ProjectsSection() {
   return (
     <section className="projects" aria-label="Project rooms" id="projects-section">
       <div className="projects__header">
-        <p className="projects__eyebrow">Project Rooms</p>
-        <h2 className="projects__title">Open any door</h2>
+        <h2 className="projects__title">Projects</h2>
         <p className="projects__description">
-          Filter by tag to highlight the rooms that match. Each entry opens a detailed markdown room.
+          Shown in chronological order. Filter by tag.
         </p>
         <div className="projects__tags" role="group" aria-label="Project tags">
           {PROJECT_TAGS.map((tag) => (
@@ -43,11 +42,11 @@ function ProjectsSection() {
           ))}
         </div>
       </div>
-      <div className="projects__grid">
+      <ul className="projects__list">
         {projectCards.map(({ project, isDimmed }) => (
           <ProjectRoom key={project.id} project={project} isDimmed={isDimmed} />
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

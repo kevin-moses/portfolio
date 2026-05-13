@@ -1,24 +1,17 @@
 import { Link } from 'react-router-dom';
-import doorIllustration from '../../assets/door.png';
 
 function ProjectRoom({ project, isDimmed }) {
   return (
-    <article
-      className={`project-card${isDimmed ? ' project-card--dim' : ''}`}
-      aria-label={`${project.title} project room`}
+    <li
+      className={`project-row${isDimmed ? ' project-row--dim' : ''}`}
+      aria-label={`${project.title} project`}
     >
-      <Link className="project-card__link project-card__link--stacked" to={`/${project.slug}`}>
-        <img
-          src={doorIllustration}
-          alt={`${project.title} door icon`}
-          className="project-card__image"
-          loading="lazy"
-        />
-        <h3 className="project-card__title project-card__title--small">{project.title}</h3>
+      <Link className="project-row__link" to={`/${project.slug}`}>
+        <span className="project-row__title">{project.title}</span>
+        <span className="project-row__tags">{project.tags.join(' · ')}</span>
       </Link>
-    </article>
+    </li>
   );
 }
 
 export default ProjectRoom;
-
